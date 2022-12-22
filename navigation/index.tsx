@@ -18,6 +18,10 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import ListScreen from '../screens/List/ListScreen';
+import MapScreen from '../screens/Map/MapScreen';
+import ProfileScreen from '../screens/Profile/ProfileScreen';
+import StatsScreen from '../screens/Stats/StatsScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -47,10 +51,29 @@ function RootNavigator() {
   );
 }
 
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
+const tabs = [
+  {
+    name: "List",
+    component: ListScreen,
+    png: require("../assets/navIcons/list.png"),
+  },
+  {
+    name: "Map",
+    component: MapScreen,
+    png: require("../assets/navIcons/map.png"),
+  },
+  {
+    name: "Stats",
+    component: StatsScreen,
+    png: require("../assets/navIcons/stats.png"),
+  },
+  {
+    name: "Profile",
+    component: ProfileScreen,
+    png: require("../assets/navIcons/profile.png"),
+  },
+];
+
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
