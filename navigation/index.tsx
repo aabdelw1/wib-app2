@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName, Pressable, Image, View, Text } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -85,36 +85,37 @@ function BottomTabNavigator() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
-      <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
+      {tabs.map((tab, key) => {
+        return (
+          <BottomTab.Screen
+            name={tab.name}
+            component={tab.component}
+            key={key}
+            options={({ navigation }) => ({
+              title: tab.name,
+              tabBarIcon: ({ focused }) =>  (
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    top: 10,
+                  }}
+                >
+                  <Image
+                    source={tab.png}
+                    resizeMode="contain"
+                    style={{
+                      width: 25,
+                      height: 25,
+                      tintColor: focused ? "#4361EE" : "#748c94",
+                    }}
+                  />
+                </View>
+              ),
+            })}
+          />
+        );
+      })}
     </BottomTab.Navigator>
   );
 }

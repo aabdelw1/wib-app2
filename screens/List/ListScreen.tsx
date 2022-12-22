@@ -11,10 +11,10 @@ const ListScreen = () => {
   return (
     <AppContext.Consumer>
       {(data) => (
-        <SafeAreaView>
+        <>
           <Header />
           <People data={data} />
-        </SafeAreaView>
+        </>
       )}
     </AppContext.Consumer>
   );
